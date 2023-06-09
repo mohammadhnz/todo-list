@@ -1,0 +1,17 @@
+Django==4.2.2
+djangorestframework
+django-filter
+python-decouple
+psycopg2-binary
+djangorestframework-simplejwt
+django-cors-headers
+drf-writable-nested
+uvicorn
+gunicorn
+django-request-logging
+django-entangled
+django-model-utils
+django-simple-history
+python-json-logger~=2.0
+python-decouple==3.7
+sentry-sdk~=1.5.1
