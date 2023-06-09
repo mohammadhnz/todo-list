@@ -23,11 +23,11 @@ class ProfileRegisterAPIViewTestCase(TestCase):
 
         self.assertTrue(Profile.objects.exists())
 
-        profile = Profile.objects.get(username='john_doe')
+        profile = Profile.objects.get(username='ali_hnz')
 
-        self.assertEqual(profile.username, 'john_doe')
-        self.assertEqual(profile.first_name, 'John')
-        self.assertEqual(profile.last_name, 'Doe')
-        self.assertEqual(profile.email, 'john@example.com')
+        self.assertEqual(profile.username, 'ali_hnz')
+        self.assertEqual(profile.first_name, 'Ali')
+        self.assertEqual(profile.last_name, 'HNZ')
+        self.assertEqual(profile.email, 'alihnz@gmail.com')
         self.assertEqual(profile.phone_number, '1234567890')
         self.assertEqual(profile.user_type, 1)

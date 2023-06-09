@@ -11,7 +11,7 @@ class Developer(HistoricalBaseModel):
 
 
 class ProductManager(HistoricalBaseModel):
-    account = models.OneToOneField(
+    profile = models.OneToOneField(
         to='authentication.Profile',
         on_delete=models.CASCADE
     )

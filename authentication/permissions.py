@@ -12,6 +12,6 @@ class IsDeveloper(permissions.BasePermission):
 
 class IsProductManager(permissions.BasePermission):
     def has_permission(self, request, view):
-        if get_product_manager_by_profile(request.user):
+        if get_product_manager_by_profile(request.user.id):
             return True
         return False

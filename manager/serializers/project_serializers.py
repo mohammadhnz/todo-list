@@ -10,7 +10,7 @@ class ProjectCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = (
-            'project_name',
+            'name',
             'developer_ids',
             'product_manager',
         )
@@ -37,14 +37,14 @@ class ProjectListRetrieveSerializer(serializers.ModelSerializer):
         model = Project
         fields = (
             'id',
-            'project_name',
+            'name',
             'developers',
         )
         read_only_fields = (
             'id',
-            'project_name',
+            'name',
             'developers',
         )
 
     def get_developers(self, project):
-        return project.developers.all().values_list('account__first_name', flat=True)
+        return project.developers.all().values_list('profile__first_name', flat=True)
