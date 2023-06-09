@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 from manager import repository
 from manager.models import Task
-from manager.repository import get_developers_by_id
+from manager.repository import get_developers_by_id, get_invalid_developers_for_project
 
 
 class TaskCreateUpdateSerializer(serializers.ModelSerializer):
@@ -20,23 +20,23 @@ class TaskCreateUpdateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         project = attrs.get('project')
         developer_ids = attrs.get('developer_ids', [])
-        if ids := repository.get_developers_who_are_not_member_of_project(project.id, developer_ids):
+        if get_invalid_developers_for_project(project, developer_ids):
             raise ValidationError(
-                f'You can only assign project developers to its tasks! These members are not in project: {str(ids)}'
+                f'You can only assign project developers to its tasks'
             )
         return attrs
 
     def create(self, validated_data):
         developer_ids = validated_data.pop('developer_ids', [])
-        developers = get_developers_by_id(developer_ids)
         task = super().create(validated_data)
+        developers = get_developers_by_id(developer_ids)
         task.assignees.set(developers)
         return task
 
     def update(self, instance, validated_data):
         developer_ids = validated_data.pop('developer_ids', [])
-        developers = get_developers_by_id(developer_ids)
         task = super().update(instance, validated_data)
+        developers = get_developers_by_id(developer_ids)
         task.assignees.set(developers)
         return task
 
