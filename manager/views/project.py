@@ -1,19 +1,19 @@
 from rest_framework.viewsets import ModelViewSet
 
 from authentication.permissions import IsProductManager
+from authentication.services.account import get_product_manager_by_profile
+from manager.repository import get_product_manager_projects
+from manager.serializers.project_serializers import ProjectCreateUpdateSerializer, ProjectListRetrieveSerializer
 
 
 class ProjectViewSet(ModelViewSet):
-    permission_classes = [IsProductManager]
+    permission_classes = (IsProductManager,)
 
     def get_serializer_class(self):
-        if self.action in ['create', 'partial_update']:
-            return project_serializer.ProjectCreateUpdateSerializer
-        return project_serializer.ProjectListRetrieveSerializer
+        if self.request.method in ('PUT', 'PATCH'):
+            return ProjectCreateUpdateSerializer
+        return ProjectListRetrieveSerializer
 
     def get_queryset(self):
-        project_manager = get_product_manager(self.request.user)
-        return core_repository.get_product_manager_all_projects(project_manager.id).prefetch_related(
-            'developers',
-            'developers__account',
-        )
+        product_manager = get_product_manager_by_profile(self.request.user)
+        return get_product_manager_projects(product_manager)

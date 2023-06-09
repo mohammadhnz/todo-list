@@ -1,8 +1,6 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
 
-from _utils.hisory_setter_getter import SIMPLE_HISTORY_HISTORICAL_RECORDS_CONFIG
-
 
 class ActiveManager(models.Manager):
     def get_queryset(self):

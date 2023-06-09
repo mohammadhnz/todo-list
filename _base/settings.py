@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "authentication",
+    "manager",
+    "drf_spectacular",
+    "simple_history"
 ]
 
 MIDDLEWARE = [

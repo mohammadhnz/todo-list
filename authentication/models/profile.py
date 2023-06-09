@@ -2,6 +2,8 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
+from authentication.models.managers import ProfileManager
+
 
 class Profile(AbstractBaseUser, PermissionsMixin):
     USER_TYPE_CHOICES = (
@@ -19,3 +21,4 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'phone_number']
+    objects = ProfileManager()
